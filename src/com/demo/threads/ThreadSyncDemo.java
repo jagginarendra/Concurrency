@@ -1,6 +1,28 @@
-package com.demo;
+package com.demo.threads;
 
-public class MyWorker implements Runnable {
+public class ThreadSyncDemo {
+
+    public static void main(String[] args) {
+
+        int N = 10;
+        Object lock = new Object();
+        MyWorker oddworker = new MyWorker(N, true, lock);
+        MyWorker evenworker = new MyWorker(N, false, lock);
+        Thread oddThread = new Thread(oddworker);
+        Thread evenThread = new Thread(evenworker);
+        oddThread.start();
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        evenThread.start();
+        System.out.println("Main exiting");
+    }
+
+}
+
+class MyWorker implements Runnable {
 
 
     private int N;
@@ -26,7 +48,7 @@ public class MyWorker implements Runnable {
 
 
     private void evenWorker() {
-       int i = 1;
+        int i = 1;
         synchronized (lock){
             while(i <= N){
 
@@ -73,3 +95,4 @@ public class MyWorker implements Runnable {
     }
 
 }
+
