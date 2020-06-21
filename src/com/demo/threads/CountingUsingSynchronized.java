@@ -1,6 +1,6 @@
 package com.demo.threads;
 
-public class ThreadSyncDemo {
+public class CountingUsingSynchronized {
 
     public static void main(String[] args) {
 
